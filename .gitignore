@@ -1,0 +1,4 @@
+**/__pycache__/
+.vscode
+venv
+user_data_dir

@@ -1,0 +1,3 @@
+
+class ProductUnavailable(Exception):
+    pass
