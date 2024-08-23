@@ -51,7 +51,8 @@ if __name__ == '__main__':
         if not isinstance(ASIN, str) or ASIN.strip() == '':
             logger.warning(f'skipping amazon product, ASIN: {ASIN}')
             continue
-        
+
+        count = 0
         while True:
             try:
                 scraped_info = get_review_information(driver, URL)
@@ -60,6 +61,10 @@ if __name__ == '__main__':
                 scraped_info = {5: 'NA', 4: 'NA', 3: 'NA', 2: 'NA', 1: 'NA'}
                 break
             except Exception:
+                if count > 1:
+                    scraped_info = {5: 'NA', 4: 'NA', 3: 'NA', 2: 'NA', 1: 'NA'}
+                    break
+                count += 1
                 continue
 
         latest_product_info = latest_review_data.get(ASIN)
