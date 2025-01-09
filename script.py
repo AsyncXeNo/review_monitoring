@@ -28,8 +28,8 @@ if __name__ == '__main__':
     latest_date = latest_review_data.get('date') or 'NA'
     today_date = datetime.today().strftime('%d-%m-%y')
 
-    disp = Display()
-    disp.start()
+    # disp = Display()
+    # disp.start()
 
     output = []
 
@@ -41,7 +41,9 @@ if __name__ == '__main__':
         logger.error(e)
         send_error_mail('Error while loading data from google sheet')
 
-    driver = get_chromedriver_without_proxy()   
+    driver = get_chromedriver_without_proxy() 
+
+    input('Login to amazon')
 
     for index, entry in enumerate(amazon_data):
 
@@ -102,7 +104,7 @@ if __name__ == '__main__':
         
 
     driver.close()
-    disp.stop()
+    # disp.stop()
     
     logger.info('Data scraping complete, saving...')
 
