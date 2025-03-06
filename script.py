@@ -1,5 +1,6 @@
 #!venv/bin/python3
 
+import traceback
 import copy
 import json
 import utils.config as _
@@ -7,7 +8,7 @@ from datetime import datetime
 
 from loguru import logger
 
-from pyvirtualdisplay import Display
+# from pyvirtualdisplay import Display
 
 from utils.mail import send_output_mail, send_email, send_error_mail
 from utils.sheets import get_amazon_data, save_data
@@ -20,7 +21,7 @@ if __name__ == '__main__':
 
     logger.info('Starting script')
 
-    send_email('dev.kartikaggarwal117@gmail.com', ['dev.kartikaggarwal117@gmail.com'], 'Reviewmon Execute', 'Script has started execution!', [])
+    send_email('Notification System <dev@kartikcodes.in>', ['dev.kartikaggarwal117@gmail.com'], 'Amazon Reviewmon Execute!', 'Amazon Reviewmon script has started execution!', [])
     
     with open('data/latest.json', 'r') as f:
         latest_review_data = json.load(f)
@@ -62,12 +63,15 @@ if __name__ == '__main__':
             except ProductUnavailable:
                 scraped_info = {5: 'NA', 4: 'NA', 3: 'NA', 2: 'NA', 1: 'NA'}
                 break
-            except Exception:
+            except Exception as e:
+                # trace = traceback.format_exc()
+                logger.error(e)
+                count += 1
                 if count > 1:
                     scraped_info = {5: 'NA', 4: 'NA', 3: 'NA', 2: 'NA', 1: 'NA'}
                     break
-                count += 1
-                continue
+                else:
+                    continue
 
         latest_product_info = latest_review_data.get(ASIN)
         if not latest_product_info:

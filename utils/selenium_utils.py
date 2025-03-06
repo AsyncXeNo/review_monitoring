@@ -28,7 +28,7 @@ def _get_chrome_options():
     chrome_options = uc.ChromeOptions()
     # ua = UserAgent()
 
-    chrome_options.add_argument("--user-data-dir=/home/asyncxeno/Dev/review-monitoring/user_data_dir")
+    chrome_options.add_argument(f"--user-data-dir={os.path.join(os.getcwd(), 'user_data_dir')}")
     chrome_options.add_argument("--profile-directory=Default")
     # chrome_options.add_argument('--remote-debugging-port=9222')
 

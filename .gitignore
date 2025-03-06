@@ -2,3 +2,8 @@
 .vscode
 venv
 user_data_dir
+.env
+data/output.xlsx
+logs/script.logs
+*/**/__pycache__
+capture-log.txt
