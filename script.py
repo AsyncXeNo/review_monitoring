@@ -13,7 +13,7 @@ from loguru import logger
 from utils.mail import send_output_mail, send_email, send_error_mail
 from utils.sheets import get_amazon_data, save_data
 from utils.selenium_utils import get_chromedriver_without_proxy
-from portals.amazon import get_review_information
+from portals.amazon import get_review_information, CAPTCHAS_SOLVED
 from exceptions.product import ProductUnavailable
 
 
@@ -42,9 +42,7 @@ if __name__ == '__main__':
         logger.error(e)
         send_error_mail('Error while loading data from google sheet')
 
-    driver = get_chromedriver_without_proxy() 
-
-    input('Login to amazon')
+    driver = get_chromedriver_without_proxy()
 
     for index, entry in enumerate(amazon_data):
 
@@ -65,7 +63,7 @@ if __name__ == '__main__':
                 break
             except Exception as e:
                 # trace = traceback.format_exc()
-                logger.error(e)
+                logger.error(traceback.format_exc())
                 count += 1
                 if count > 1:
                     scraped_info = {5: 'NA', 4: 'NA', 3: 'NA', 2: 'NA', 1: 'NA'}
@@ -125,4 +123,5 @@ if __name__ == '__main__':
     with open('data/latest.json', 'w') as f:
         json.dump(latest_review_data, f, indent=4)
 
+    logger.info(f'Captchas solved: {CAPTCHAS_SOLVED}')
     logger.info('Script has run to completion!')

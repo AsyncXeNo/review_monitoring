@@ -38,7 +38,7 @@ def _get_chrome_options():
     # chrome_options.add_argument("--disable-save-password-bubble")
 
     # chrome_options.add_argument('--remote-debugging-port=9222') 
-    # chrome_options.add_argument("--headless=new")
+    chrome_options.add_argument("--headless=new")
 
     # chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"]) 
     # chrome_options.add_experimental_option("useAutomationExtension", False) 
