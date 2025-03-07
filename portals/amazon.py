@@ -11,6 +11,8 @@ from selenium.webdriver.support.ui import Select
 from exceptions.product import ProductUnavailable
 from utils.captcha import solve_text_captcha, report_incorrect
 
+CAPTCHAS_SOLVED = 0
+
 
 def check_for_captcha(driver: webdriver.Chrome) -> bool:
     try:
